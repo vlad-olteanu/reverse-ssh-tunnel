@@ -1,0 +1,15 @@
+services:
+  sshd:
+    build: .
+    ports:
+      - "22:22"
+      - "8080:8080"
+    volumes:
+      - sshd-etc:/etc/ssh
+      - ./sshd_config:/etc/ssh/sshd_config:ro
+    environment:
+      SSH_PUBLIC_KEY: ${SSH_PUBLIC_KEY}
+    restart: unless-stopped
+
+volumes:
+  sshd-etc:

@@ -1,0 +1,16 @@
+Port 22
+
+PermitRootLogin prohibit-password
+PasswordAuthentication no
+KbdInteractiveAuthentication no
+PubkeyAuthentication yes
+
+AllowUsers root
+
+StrictModes yes
+
+AllowTcpForwarding remote
+GatewayPorts clientspecified
+
+X11Forwarding no
+AllowAgentForwarding no

@@ -1,0 +1,25 @@
+[Unit]
+Description=Reverse SSH tunnel (target:8080 -> local:80) via autossh
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+Environment=AUTOSSH_GATETIME=0
+Environment=AUTOSSH_POLL=30
+ExecStart=/usr/bin/autossh -N -M 0 \
+    -o ServerAliveInterval=30 \
+    -o ServerAliveCountMax=3 \
+    -o ExitOnForwardFailure=yes \
+    -i /etc/ssh-tunnel/key \
+    -R 0.0.0.0:8080:127.0.0.1:80 \
+    -p 22 \
+    root@TARGET_IP
+Restart=always
+RestartSec=5
+
+ProtectSystem=strict
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
